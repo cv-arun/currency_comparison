@@ -1,15 +1,21 @@
+
 const express = require('express')
 const router = express.Router();
-const axios = require('axios')
+const helper=require('../helpers/mainHelper')
+const controller=require('../controllers/mainController')
+
+
+
+router.get('/getUpdate',controller.getData)
 
 
 
 
-
-
-// setInterval(()=>{
-//     apicall()
-// },10000)
+setInterval(()=>{
+    let simbols='INR,EUR,MVR,ALL,CVE'
+    let base='USD'
+helper.apicall(simbols,base)
+},1000*60*5)
 
 
 module.exports = router
