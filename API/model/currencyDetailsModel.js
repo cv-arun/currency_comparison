@@ -1,15 +1,12 @@
-const mongoose=require('mongoose')
+const mongoose = require('mongoose')
 
 
-const exchangeModel=mongoose.Schema({
-    base:String,
-    otherCurrency:{
-        INR:Number,
-        EUR:Number,
-        MVR:Number,
-        ALL:Number,
-        CVE:Number,
-    }
+const exchangeModel = mongoose.Schema({
+    base: String,
+    otherCurrency: [{
+        code: String,
+        value: Number
+    }]
 })
 
-module.exports=mongoose.model('Exchange',exchangeModel)
+module.exports = mongoose.model('Exchange', exchangeModel)

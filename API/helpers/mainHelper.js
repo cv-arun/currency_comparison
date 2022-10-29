@@ -8,13 +8,19 @@ const helper = {
             .then(async (data) => {
 
                 console.log(data.data)
+                let obj = data.data.rates
+                let arr = []
+                for (let x in obj) {
+                    arr.push({ code: x, value: obj[x] })
+                }
+               
                 const currency = await currencyModel.findOne({ base: data.data.base });
-                currency ? currencyModel.findOneAndUpdate({ base: data.data.base }, { otherCurrency: data.data.rates }).then(data => {
+                currency ? currencyModel.findOneAndUpdate({ base: data.data.base }, { otherCurrency: arr }).then(data => {
                     console.log(data)
                 }).catch(err => console.log(err)) :
                     currencyModel.create({
                         base: data.data.base,
-                        otherCurrency: data.data.rates
+                        otherCurrency: arr
                     }).then(data => {
                         console.log(data)
                     }).catch(err => console.log(err))
@@ -24,8 +30,9 @@ const helper = {
     getData: () => {
         return new Promise((resolve, reject) => {
             currencyModel.findOne().then(data => {
+                data.otherCurrency= data.otherCurrency.sort((a,b)=>a.value-b.value)
                 resolve(data)
-            }).then(err=>reject(err))
+            }).then(err => reject(err))
         })
     }
 

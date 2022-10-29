@@ -1,13 +1,17 @@
 import React from 'react'
-import Login from '../componets/login'
-import Charts from '../componets/charts'
+
+import Charts from '../componets/charts';
+import Stats from '../componets/stats';
 
 function HomePage() {
   return (
     <>
-    <div>homePage</div>
-    {/* <Login/> */}
-    <Charts/>
+      <div className="card lg:col-8 mx-auto">
+      <h5 className='text-center'>Rate of currency equalent to 1 USD</h5>
+        <Charts />
+        <Stats/>
+
+      </div>
     </>
 
   )

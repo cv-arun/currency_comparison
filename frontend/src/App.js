@@ -3,12 +3,12 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 
 import './App.css';
-import HomePage from './pages/homePage';
+import MainRoutes from "./routes/route";
 
 function App() {
   return (
    <>
-   <HomePage/>
+   <MainRoutes/>
    </>
   );
 }

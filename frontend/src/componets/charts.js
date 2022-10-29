@@ -1,19 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Chart } from 'primereact/chart';
 
 
+
 function Charts() {
-    const [basicData] = useState({
-        labels: ['January', 'February', 'March', 'April', 'May'],
-        datasets: [
-            {
-                label: 'My First dataset',
-                backgroundColor: '#42A5F5',
-                data: [65, 59, 80, 81, 56]
-            }
-        ]
-    });
+    const [xvalue, setXvalue] = useState([])
+    const [yvalue, setYvalue] = useState([])
+    const [basicData, setBasicData] = useState({})
+    useEffect(() => {
+        let data = JSON.parse(localStorage.getItem('currency'))
+        console.log(data.otherCurrency)
+        let x = data.otherCurrency.map((current) => current.value.toFixed(2))
+        setXvalue(x)
+        let y = data.otherCurrency.map((current) => current.code)
+        setYvalue(y)
+    }, [])
+    useEffect(() => {
+        setBasicData({
+            labels: yvalue,
+            datasets: [
+                {
+                    label: 'current rates comparing to 1 USD',
+                    backgroundColor: '#42A5F5',
+                    data: xvalue
+                }
+            ]
+        })
+    }, [yvalue, xvalue])
     let basicOptions = {
         maintainAspectRatio: false,
         aspectRatio: .8,
@@ -24,11 +38,10 @@ function Charts() {
                 }
             }
         },
-       
+
     };
     return (
-        <div className="card">
-            <h5>Bar chart</h5>
+        <div >
             <Chart type="bar" data={basicData} options={basicOptions} />
             <p>updated 11 minutes ago</p>
         </div>

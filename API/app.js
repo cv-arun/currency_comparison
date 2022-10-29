@@ -2,21 +2,24 @@ const express = require('express');
 const  env=require('dotenv').config();
 const logger = require('morgan');
 const createError = require('http-errors');
-const mongoose = require("mongoose");
+const mongoose=require('mongoose')
 const cors = require("cors")
-const app=express();
-const mainROuter=require('./Router/mainRoute')
-
+const mainRouter=require('./router/mainRoute')
+const app = express();
+const http = require("http");
 
 mongoose.connect(process.env.mongo_URL,()=>{
-    console.log("db connected")
+  console.log("db connected")
 })
+
+const server = http.createServer(app);
 
 app.use(cors())
 app.use(logger('dev'));
 app.use(express.json());
 
-app.use('/',mainROuter)
+
+app.use('/',mainRouter)
 
 
 app.use(function (req, res, next) {
@@ -27,6 +30,6 @@ app.use(function (err,req, res, next) {
   });
 
 const PORT=process.env.PORT||5000
-app.listen(PORT,()=>{
-    console.log(`server running at port:${PORT}`)
-})
+server.listen(PORT, () =>
+  console.log(` app listening on port ${PORT}!`),
+);
