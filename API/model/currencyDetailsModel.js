@@ -6,7 +6,8 @@ const exchangeModel = mongoose.Schema({
     otherCurrency: [{
         code: String,
         value: Number
-    }]
+    }],
+    updated:String
 })
 
 module.exports = mongoose.model('Exchange', exchangeModel)

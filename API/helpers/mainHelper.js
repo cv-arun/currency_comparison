@@ -20,16 +20,26 @@ const helper = {
                 }).catch(err => console.log(err)) :
                     currencyModel.create({
                         base: data.data.base,
-                        otherCurrency: arr
+                        otherCurrency: arr,
+                        updated:new Date()
                     }).then(data => {
                         console.log(data)
                     }).catch(err => console.log(err))
 
             })
     },
-    getData: () => {
-        return new Promise((resolve, reject) => {
-            currencyModel.findOne().then(data => {
+    // getData: () => {
+    //     return new Promise((resolve, reject) => {
+    //         currencyModel.findOne().then(data => {
+    //             data.otherCurrency= data.otherCurrency.sort((a,b)=>a.value-b.value)
+    //             resolve(data)
+    //         }).then(err => reject(err))
+    //     })
+    // },
+    getData:()=>{
+        return new Promise((resolve,reject)=>{
+            currencyModel.findOneAndUpdate({},{updated:new Date()}).then(data=>{
+                console.log(data)
                 data.otherCurrency= data.otherCurrency.sort((a,b)=>a.value-b.value)
                 resolve(data)
             }).then(err => reject(err))

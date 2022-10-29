@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import Moment from 'react-moment'
 import { Chart } from 'primereact/chart';
 
 
@@ -8,6 +8,7 @@ function Charts() {
     const [xvalue, setXvalue] = useState([])
     const [yvalue, setYvalue] = useState([])
     const [basicData, setBasicData] = useState({})
+    const [lastApiCall, setLastApiCall] = useState('1976-04-19T12:59-0500')
     useEffect(() => {
         let data = JSON.parse(localStorage.getItem('currency'))
         console.log(data.otherCurrency)
@@ -15,6 +16,7 @@ function Charts() {
         setXvalue(x)
         let y = data.otherCurrency.map((current) => current.code)
         setYvalue(y)
+        setLastApiCall(data.updated)
     }, [])
     useEffect(() => {
         setBasicData({
@@ -43,7 +45,7 @@ function Charts() {
     return (
         <div >
             <Chart type="bar" data={basicData} options={basicOptions} />
-            <p>updated 11 minutes ago</p>
+            <p>*last updated <Moment fromNow ago>{lastApiCall}</Moment> ago</p>
         </div>
     )
 }

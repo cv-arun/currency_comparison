@@ -28,8 +28,9 @@ function Login() {
       }
       return errors;
     },
-    onSubmit: (data) => {
+    onSubmit: (formData) => {
       axios.get('/getUpdate').then(data => {
+        data.data.updated=new Date()
         localStorage.setItem('currency', JSON.stringify(data.data))
         formik.resetForm();
         navigate('/chart')

@@ -7,7 +7,7 @@ function HomePage() {
   return (
     <>
       <div className="card lg:col-8 mx-auto">
-      <h5 className='text-center'>Rate of currency equalent to 1 USD</h5>
+      <h5 className='text-center'>Rate of currency comparing to 1 USD</h5>
         <Charts />
         <Stats/>
 
