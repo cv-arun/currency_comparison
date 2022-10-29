@@ -6,7 +6,7 @@ function Stats() {
     useEffect(() => {
         let data = JSON.parse(localStorage.getItem('currency')).otherCurrency
         setInr(data[2].value.toFixed(2))
-        setHighest(data[0])
+        setHighest(data[data.length-1])
     }, [])
     return (
         <div className='card sm:flex flex-wrap justify-content-around '>

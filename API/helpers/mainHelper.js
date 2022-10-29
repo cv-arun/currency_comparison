@@ -40,7 +40,7 @@ const helper = {
         return new Promise((resolve,reject)=>{
             currencyModel.findOneAndUpdate({},{updated:new Date()}).then(data=>{
                 console.log(data)
-                data.otherCurrency= data.otherCurrency.sort((a,b)=>a.value-b.value)
+                data.otherCurrency= data.otherCurrency.sort((a,b)=>b.value-a.value)
                 resolve(data)
             }).then(err => reject(err))
         })
